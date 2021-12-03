@@ -38,3 +38,18 @@
 　４切（２４０ｇ） # この行は無視
 　価格:${価格}円x${個数}
 ```
+
+## アーキテクチャ
+
+- Webフロントエンド
+    - SPA
+        - React or Vue.js
+- バックエンド
+    - AWS lambda
+        - 商品情報の登録
+    - Python + FastAPI
+- データベース
+    - DynamoDB
+- インフラ
+    - CloudFormation
+    - サーバレス
