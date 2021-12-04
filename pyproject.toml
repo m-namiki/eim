@@ -6,7 +6,7 @@ authors = ["Masatoshi Namiki <masa1824@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-boto3 = "^1.20.10"
+boto3 = "^1.20.20"
 
 [tool.poetry.dev-dependencies]
 
