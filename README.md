@@ -70,3 +70,5 @@
 ```
 # uvicorn main:app --reload
 ```
+
+アプリケーションではDynamoDBを使用します。テスト用のローカルDynamoDBには[dynamodb-admin](http://localhost:8001/) からWebインターフェースにアクセスすることができます。
