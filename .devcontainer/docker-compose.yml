@@ -1,19 +1,23 @@
 version: '3.8'
 services:
-  python3:
-    build: .
+  app:
+    build: "./app"
     container_name: python3
     ports:
      - "8080:8080"
-    environment:
-      AWS_ACCESS_KEY_ID: 'DUMMYIDEXAMPLE'
-      AWS_SECRET_ACCESS_KEY: 'DUMMYEXAMPLEKEY'
     tty: true
     stdin_open: true
+    working_dir: /workspaces/eim
+    volumes:
+      - type: bind
+        source: ..
+        target: /workspaces/eim
     depends_on:
       - dynamodb-local
-#    command:
-#      dynamodb describe-limits --endpoint-url http://dynamodb-local:8000 --region us-west-2
+    environment:
+      AWS_ACCESS_KEY_ID: 'DUMMYIDEXAMPLE'
+      AWS_SECRET_ACCESS_KEY: 'DUMMYIDEXAMPLE'
+      REGION: 'eu-west-1'
   dynamodb-local:
     command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
     image: "amazon/dynamodb-local:latest"
