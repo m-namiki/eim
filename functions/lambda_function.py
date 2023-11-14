@@ -1,3 +1,11 @@
+"""_summary_
+
+Raises:
+    e: _description_
+
+Returns:
+    _type_: _description_
+"""
 import email
 from datetime import datetime as dt
 
@@ -5,6 +13,16 @@ import boto3
 
 
 def create_item(received_date, item_list, price_list):
+    """_summary_
+
+    Args:
+        received_date (_type_): _description_
+        item_list (_type_): _description_
+        price_list (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     items = []
     # 日付はISO8601形式にする必要がある
     received_date = received_date.split(":")[1]
@@ -34,6 +52,14 @@ def create_item(received_date, item_list, price_list):
 
 
 def analyze(_part):
+    """_summary_
+
+    Args:
+        _part (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     payload = _part.get_payload(decode=True)
     body = payload.decode(_part.get_content_charset())
     lines = body.splitlines()
@@ -54,6 +80,14 @@ def analyze(_part):
 
 
 def read_message(file):
+    """_summary_
+
+    Args:
+        file (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     with open(file, "r", encoding="UTF-8") as f:
         msg = email.message_from_file(f)
         items = None
@@ -66,6 +100,17 @@ def read_message(file):
 
 
 def lambda_handler(event, context):
+    """lambda関数ハンドラー
+
+    lambda関数のハンドラー。詳細は[公式ドキュメント](https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/python-handler.html)
+
+    Args:
+        event (dict): [イベントオブジェクト](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-concepts.html)
+        context (_type_): [コンテキストオブジェクト](https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/python-context.html)
+
+    Raises:
+        e: ファイルの読み込みに失敗した場合
+    """
     s3 = boto3.client("s3")
 
     bucket = event["Records"][0]["s3"]["bucket"]["name"]
@@ -73,7 +118,6 @@ def lambda_handler(event, context):
     try:
         file = s3.get_object(Bucket=bucket, Key=key)
         read_message(file)
-        print(file)
 
     except Exception as e:
         print(e)
