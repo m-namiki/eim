@@ -11,17 +11,18 @@
         "vscode": {
             // Add the IDs of extensions you want installed when the container is created.
             "extensions": [
-                "ms-python.python",
-                "ms-python.vscode-pylance",
-                "ms-python.black-formatter",
-                "ms-python.flake8",
-                "ms-python.isort",
-                "ms-azuretools.vscode-docker",
-                "github.vscode-github-actions",
-                "GitHub.vscode-pull-request-github",
-                "amazonwebservices.aws-toolkit-vscode",
-                "redhat.vscode-yaml",
-                "oderwat.indent-rainbow"
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"ms-python.black-formatter",
+				"ms-python.flake8",
+				"ms-python.isort",
+				"ms-azuretools.vscode-docker",
+				"github.vscode-github-actions",
+				"GitHub.vscode-pull-request-github",
+				"amazonwebservices.aws-toolkit-vscode",
+				"redhat.vscode-yaml",
+				"oderwat.indent-rainbow",
+				"njpwerner.autodocstring"
 			],
             // Set *default* container specific settings.json values on container create.
             "settings": {
