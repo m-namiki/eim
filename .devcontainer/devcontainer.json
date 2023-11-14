@@ -58,5 +58,5 @@
             }
         }
     },
-    "postCreateCommand": "poetry install"
+    "postCreateCommand": "poetry install --no-root"
 }
