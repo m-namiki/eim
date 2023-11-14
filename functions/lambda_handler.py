@@ -1,6 +1,7 @@
 import email
-import boto3
 from datetime import datetime as dt
+
+import boto3
 
 
 def create_item(received_date, item_list, price_list):
