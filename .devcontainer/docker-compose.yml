@@ -2,16 +2,16 @@ version: '3.8'
 services:
   app:
     build: "./app"
-    container_name: python3
+    container_name: python311
     ports:
      - "8080:8080"
     tty: true
     stdin_open: true
-    working_dir: /workspaces/eim
+    working_dir: /workspace/eim
     volumes:
       - type: bind
         source: ..
-        target: /workspaces/eim
+        target: /workspace/eim
     depends_on:
       - dynamodb-local
     environment:
@@ -25,7 +25,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - "./docker/dynamodb:/home/dynamodblocal/data"
+      - "./dynamodb:/home/dynamodblocal/data"
     working_dir: /home/dynamodblocal
   dynamodb-admin:
     image: aaronshaf/dynamodb-admin
