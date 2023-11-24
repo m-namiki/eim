@@ -1,18 +1,17 @@
 {
-    "name": "Python 3.11",
+    "name": "eim",
     "dockerComposeFile": "docker-compose.yml",
     "service": "app",
     "forwardPorts": [
         8080
     ],
-    "workspaceFolder": "/workspaces/eim",
+    "workspaceFolder": "/workspace/eim",
     "customizations": {
         // Configure properties specific to VS Code.
         "vscode": {
             // Add the IDs of extensions you want installed when the container is created.
             "extensions": [
 				"ms-python.python",
-				"ms-python.vscode-pylance",
 				"ms-python.black-formatter",
 				"ms-python.flake8",
 				"ms-python.isort",
@@ -20,41 +19,25 @@
 				"github.vscode-github-actions",
 				"GitHub.vscode-pull-request-github",
 				"amazonwebservices.aws-toolkit-vscode",
-				"redhat.vscode-yaml",
 				"oderwat.indent-rainbow",
 				"njpwerner.autodocstring"
 			],
             // Set *default* container specific settings.json values on container create.
             "settings": {
-                "editor.formatOnSave": true,
-                "editor.codeActionsOnSave": {
-                    "source.organizeImports": true
+                "[python]": {
+                    "editor.defaultFormatter": "ms-python.black-formatter",
+                    "editor.formatOnSave": true,
+                    "editor.codeActionsOnSave": {
+                        "source.organizeImports": true
+                    }
                 },
-                "editor.insertSpaces": true,
-                "diffEditor.ignoreTrimWhitespace": false,
-                "editor.wordBasedSuggestions": false,
-                "python.defaultInterpreterPath": "/usr/local/bin/python",
-                "editor.defaultFormatter": "ms-python.black-formatter",
-                "python.analysis.autoImportCompletions": true,
-                "python.analysis.inlayHints.functionReturnTypes": true,
-                "python.analysis.typeCheckingMode": "basic",
+                "isort.args":["--profile", "black"],
                 "black-formatter.args": [
                     "--line-length=120"
                 ],
                 "flake8.args": [
                     "--max-line-length=120"
-                ],
-                "flake8.ignorePatterns": [
-                    "--ignore=E203,W503,W504"
-                ],
-                "editor.autoIndent": "keep",
-                "editor.quickSuggestions": {
-                    "other": true,
-                    "comments": false,
-                    "strings": true
-                },
-                "isort.args":["--profile", "black"],
-                "redhat.telemetry.enabled": false
+                ]
             }
         }
     },
