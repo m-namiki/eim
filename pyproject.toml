@@ -1,20 +1,30 @@
-[tool.poetry]
+[project]
 name = "eim"
 version = "0.1.0"
-description = ""
-authors = ["Masatoshi Namiki <masa1824@gmail.com>"]
+description = "Add your description here"
+authors = [
+    { name = "Masatoshi Namiki", email = "masa1824@gmail.com" }
+]
+dependencies = [
+    "fastapi>=0.104.1",
+    "uvicorn>=0.24.0.post1",
+]
 readme = "README.md"
-
-[tool.poetry.dependencies]
-python = "^3.11"
-fastapi = "^0.104.1"
-uvicorn = "^0.24.0.post1"
-
-
-[tool.poetry.group.dev.dependencies]
-boto3 = "^1.28.84"
-pytest = "^7.4.3"
+requires-python = ">= 3.8"
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "boto3>=1.29.6",
+    "pytest>=7.4.3",
+]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.rye.scripts]
+devserver = "uvicorn eim.main:app --reload --host 0.0.0.0"
