@@ -1,8 +1,9 @@
 FROM python:3.11
 
-RUN pip install --upgrade pip \
-  && pip install poetry \
-  && poetry config virtualenvs.create false
+WORKDIR /workspace/eim
+
+RUN curl -sSf https://rye-up.com/get | RYE_INSTALL_OPTION="--yes" bash \
+  && echo 'source "$HOME/.rye/env"' >> ~/.bashrc
 
 # install nodejs
 ENV NODE_MAJOR=20
@@ -13,6 +14,5 @@ RUN mkdir -p /etc/apt/keyrings \
   && apt-get install -y nodejs \
   && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /workspaces/eim
 # install typescrpit and aws-cdk
 RUN npm install --prefix ./provisioning typescript aws-cdk-lib --save-dev

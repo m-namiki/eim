@@ -13,7 +13,7 @@ services:
         source: ..
         target: /workspace/eim
     depends_on:
-      - dynamodb-local
+      - dynamodb-admin
     environment:
       AWS_ACCESS_KEY_ID: 'DUMMYIDEXAMPLE'
       AWS_SECRET_ACCESS_KEY: 'DUMMYIDEXAMPLE'
