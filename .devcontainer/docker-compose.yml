@@ -2,7 +2,7 @@ version: '3.8'
 services:
   app:
     build: "./app"
-    container_name: python311
+    container_name: eim-app
     ports:
      - "8080:8080"
     tty: true
@@ -17,7 +17,7 @@ services:
     environment:
       AWS_ACCESS_KEY_ID: 'DUMMYIDEXAMPLE'
       AWS_SECRET_ACCESS_KEY: 'DUMMYIDEXAMPLE'
-      REGION: 'eu-west-1'
+      AWS_DEFAULT_REGION: 'eu-west-1'
   dynamodb-local:
     command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
     image: "amazon/dynamodb-local:latest"

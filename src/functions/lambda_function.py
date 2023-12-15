@@ -12,13 +12,67 @@ from datetime import datetime as dt
 import boto3
 
 
-def create_item(received_date, item_list, price_list):
-    """_summary_
+def insert_item(items):
+    """商品情報をDBに登録します。
 
     Args:
-        received_date (_type_): _description_
-        item_list (_type_): _description_
-        price_list (_type_): _description_
+        items (_type_): 商品情報のリスト
+
+    Returns:
+        _type_: _description_
+    """
+    client = boto3.client("dynamodb")
+    if not check_item_table(client):
+        create_item_table(client)
+    for item in items:
+        client.put_item(TableName="item", Item=item)
+    return 0
+
+
+def create_item_table(client):
+    """商品情報のテーブルを作成します。
+
+    Args:
+        client (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
+    client.create_table(
+        TableName="item",
+        KeySchema=[
+            {"AttributeName": "item_code", "KeyType": "HASH"},
+            {"AttributeName": "received_date", "KeyType": "RANGE"},
+        ],
+        AttributeDefinitions=[
+            {"AttributeName": "item_code", "AttributeType": "N"},
+            {"AttributeName": "received_date", "AttributeType": "S"},
+        ],
+        ProvisionedThroughput={"ReadCapacityUnits": 5, "WriteCapacityUnits": 5},
+    )
+    return 0
+
+
+def check_item_table(client):
+    """商品情報のテーブルが存在するか確認します。
+
+    Returns:
+        _type_: _description_
+    """
+    response = client.list_tables()
+    if "item" in response["TableNames"]:
+        return True
+    else:
+        return False
+
+
+def create_item(received_date, item_list, price_list):
+    """商品情報を作成します。
+
+    Args:
+        received_date (_type_): 受取日
+        item_list (_type_): 商品名のリスト
+        price_list (_type_): 価格のリスト
 
     Returns:
         _type_: _description_
@@ -52,7 +106,7 @@ def create_item(received_date, item_list, price_list):
 
 
 def analyze(_part):
-    """_summary_
+    """メッセージを解析します。
 
     Args:
         _part (_type_): _description_
@@ -80,7 +134,7 @@ def analyze(_part):
 
 
 def read_message(file):
-    """_summary_
+    """指定されたファイルを読み込み、メッセージを解析します。
 
     Args:
         file (_type_): _description_
@@ -94,7 +148,7 @@ def read_message(file):
         for part in msg.walk():
             if part.get_content_type() == "text/plain":
                 items = analyze(part)
-        print(items)
+        insert_item(items)
 
     return 0
 

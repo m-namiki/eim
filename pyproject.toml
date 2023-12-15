@@ -28,3 +28,5 @@ allow-direct-references = true
 
 [tool.rye.scripts]
 devserver = "uvicorn eim.main:app --reload --host 0.0.0.0"
+pytest = "pytest -v"
+
